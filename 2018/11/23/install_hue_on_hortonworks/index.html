@@ -5,19 +5,20 @@
   
 
   
-  <title>Sean&#39;s Blog</title>
+  <title>HUE Support Guide | Sean&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="The WebSite to record the thinking.">
-<meta name="keywords" content="HDP HDF BigData">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sean&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="##启动hue login hdp-itg-001/hdp005 12sudo sunohup /usr/local/hue/build/env/bin/supervisor &amp;amp; ##停止hue 12ps -ef | grep hue | grep -v grep | awk &amp;apos;&amp;#123;print $2&amp;#125;&amp;apos; | xargs kill -s 9nohup /">
+<meta name="keywords" content="HDP,HUE,Cloudera">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HUE Support Guide">
+<meta property="og:url" content="http://yoursite.com/2018/11/23/install_hue_on_hortonworks/index.html">
 <meta property="og:site_name" content="Sean&#39;s Blog">
-<meta property="og:description" content="The WebSite to record the thinking.">
+<meta property="og:description" content="##启动hue login hdp-itg-001/hdp005 12sudo sunohup /usr/local/hue/build/env/bin/supervisor &amp;amp; ##停止hue 12ps -ef | grep hue | grep -v grep | awk &amp;apos;&amp;#123;print $2&amp;#125;&amp;apos; | xargs kill -s 9nohup /">
 <meta property="og:locale" content="CN">
+<meta property="og:updated_time" content="2018-11-23T12:38:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sean&#39;s Blog">
-<meta name="twitter:description" content="The WebSite to record the thinking.">
+<meta name="twitter:title" content="HUE Support Guide">
+<meta name="twitter:description" content="##启动hue login hdp-itg-001/hdp005 12sudo sunohup /usr/local/hue/build/env/bin/supervisor &amp;amp; ##停止hue 12ps -ef | grep hue | grep -v grep | awk &amp;apos;&amp;#123;print $2&amp;#125;&amp;apos; | xargs kill -s 9nohup /">
   
     <link rel="alternate" href="/atom.xml" title="Sean&#39;s Blog" type="application/atom+xml">
   
@@ -68,85 +69,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-postgresql_support_guide" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/23/postgresql_support_guide/" class="article-date">
-  <time datetime="2018-11-23T15:58:05.236Z" itemprop="datePublished">2018-11-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#PostgreSQL Support Guide</p>
-<p>–</p>
-<p>##重启postgreSQL</p>
-<p>[root@hdp-itg-ambari shdev]# <strong><em>su postgres</em></strong></p>
-<p>bash-4.2$ <strong><em>pg_ctl restart -m immediate -D /var/lib/pgsql/data/</em></strong> </p>
-<p><strong><em>慎用</em></strong> : 推荐使用 -m fast / -m smart </p>
-<p>waiting for server to shut down….</p>
-<p>done</p>
-<p>server stopped</p>
-<p>server starting</p>
-<p>bash-4.2$ <strong><em>psql -h hdp-itg-ambari -p 5432 -U ambari -W</em></strong></p>
-<p>Password for user ambari:</p>
-<p>‘psql (9.2.24)</p>
-<p>Type “help” for help.</p>
-<p>ambari=&gt; \q</p>
-<p>bash-4.2$ <strong><em>pg_ctl status -D /var/lib/pgsql/data/</em></strong></p>
-<p>pg_ctl: server is running (PID: 4304)</p>
-<p>/usr/bin/postgres “-D” “/var/lib/pgsql/data” “-p” “5432”</p>
-<p>bash-4.2$ pg_ctl –help</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">pg_ctl is a utility to initialize, start, stop, or control a PostgreSQL server.</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line">  pg_ctl init[db]               [-D DATADIR] [-s] [-o &quot;OPTIONS&quot;]</span><br><span class="line">  pg_ctl start   [-w] [-t SECS] [-D DATADIR] [-s] [-l FILENAME] [-o &quot;OPTIONS&quot;]</span><br><span class="line">  pg_ctl stop    [-W] [-t SECS] [-D DATADIR] [-s] [-m SHUTDOWN-MODE]</span><br><span class="line">  pg_ctl restart [-w] [-t SECS] [-D DATADIR] [-s] [-m SHUTDOWN-MODE]</span><br><span class="line">                 [-o &quot;OPTIONS&quot;]</span><br><span class="line">  pg_ctl reload  [-D DATADIR] [-s]</span><br><span class="line">  pg_ctl status  [-D DATADIR]</span><br><span class="line">  pg_ctl promote [-D DATADIR] [-s]</span><br><span class="line">  pg_ctl kill    SIGNALNAME PID</span><br><span class="line"></span><br><span class="line">Common options:</span><br><span class="line">  -D, --pgdata=DATADIR   location of the database storage area</span><br><span class="line">  -s, --silent           only print errors, no informational messages</span><br><span class="line">  -t, --timeout=SECS     seconds to wait when using -w option</span><br><span class="line">  -V, --version          output version information, then exit</span><br><span class="line">  -w                     wait until operation completes</span><br><span class="line">  -W                     do not wait until operation completes</span><br><span class="line">  -?, --help             show this help, then exit</span><br><span class="line">(The default is to wait for shutdown, but not for start or restart.)</span><br><span class="line"></span><br><span class="line">If the -D option is omitted, the environment variable PGDATA is used.</span><br><span class="line"></span><br><span class="line">Options for start or restart:</span><br><span class="line">  -c, --core-files       allow postgres to produce core files</span><br><span class="line">  -l, --log=FILENAME     write (or append) server log to FILENAME</span><br><span class="line">  -o OPTIONS             command line options to pass to postgres</span><br><span class="line">                         (PostgreSQL server executable) or initdb</span><br><span class="line">  -p PATH-TO-POSTGRES    normally not necessary</span><br><span class="line"></span><br><span class="line">Options for stop or restart:</span><br><span class="line">  -m, --mode=MODE        MODE can be &quot;smart&quot;, &quot;fast&quot;, or &quot;immediate&quot;</span><br><span class="line"></span><br><span class="line">Shutdown modes are:</span><br><span class="line">  smart       quit after all clients have disconnected</span><br><span class="line">  fast        quit directly, with proper shutdown</span><br><span class="line">  immediate   quit without complete shutdown; will lead to recovery on restart</span><br><span class="line"></span><br><span class="line">Allowed signal names for kill:</span><br><span class="line">  ABRT HUP INT QUIT TERM USR1 USR2</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/23/postgresql_support_guide/" data-id="cjovaiohd0003kj8kl43tvv85" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-add_or_delete_hdp_hosts_client" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/23/add_or_delete_hdp_hosts_client/" class="article-date">
-  <time datetime="2018-11-23T15:58:05.234Z" itemprop="datePublished">2018-11-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#新增或删除hdp平台某个host组件的client命令</p>
-<p>###Use the following command to list all the services installed on your node in cluster<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -u admin:admin -H &quot;X-Requested-By: ambari&quot; -X GET http://AMBARIHOSTNAME:8080/api/v1/clusters/CLUSTERNAME/hosts/HOST</span><br></pre></td></tr></table></figure></p>
-<p>example<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -u admin:admin -H &quot;X-Requested-By: ambari&quot; -X GET http://hdp-itg-ambari:10101/api/v1/clusters/HDP_ITG/hosts/hdp-itg-003</span><br></pre></td></tr></table></figure></p>
-<p>###Then delete the client you want using following command<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -u admin:admin -H &quot;X-Requested-By: ambari&quot; -X DELETE http://hdp-itg-ambari:10101/api/v1/clusters/HDP_ITG/hosts/hdp-itg-001/host_components/OOZIE_CLIENT</span><br></pre></td></tr></table></figure></p>
-<p>##实操</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -u admin:passwd -H &quot;X-Requested-By: ambari&quot; -X DELETE http://hdp-itg-ambari:8080/api/v1/clusters/HDP_ITG/hosts/hdp-itg-003/host_components/OOZIE_CLIENT</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/23/add_or_delete_hdp_hosts_client/" data-id="cjovaioh50000kj8k4kkoojdh" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-install_hue_on_hortonworks" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-install_hue_on_hortonworks" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/11/23/install_hue_on_hortonworks/" class="article-date">
   <time datetime="2018-11-23T12:38:17.000Z" itemprop="datePublished">2018-11-23</time>
@@ -163,8 +86,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/23/install_hue_on_hortonworks/">HUE Support Guide</a>
+    <h1 class="article-title" itemprop="name">
+      HUE Support Guide
     </h1>
   
 
@@ -1221,92 +1144,28 @@ default_from_email=hdp-alert@ajmide.cn
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-hello" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/23/hello/" class="article-date">
-  <time datetime="2018-11-23T02:28:16.000Z" itemprop="datePublished">2018-11-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2018/11/23/add_or_delete_hdp_hosts_client/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/23/hello/">hello</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
+          (no title)
         
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/23/hello/" data-id="cjovaiohc0002kj8kc3ctmg9t" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/23/hello/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">hello</div>
+    </a>
+  
+</nav>
+
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/23/hello-world/" class="article-date">
-  <time datetime="2018-11-23T02:19:48.144Z" itemprop="datePublished">2018-11-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/23/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/23/hello-world/" data-id="cjovaioha0001kj8kgmyeojji" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
