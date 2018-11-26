@@ -5,20 +5,20 @@
   
 
   
-  <title>Sean&#39;s Blog</title>
+  <title>Hive合并小文件的方法 | Sean&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Hive合并小文件 title: Hive合并小文件的方法date: 2018-11-26 10:38:17updated: 2018-11-26 20:38:17categories: Platform tags: [HDP,Hive]###hive表中大量的小文件一直是影响生产效率的问题之一，合并的小文件的工作也是迫在眉睫，百度了很久，网上提供的解决方案千篇一律，无外乎hive内置的功能，当然">
-<meta name="keywords" content="HDP HDF BigData">
+  <meta name="description" content="###hive表中大量的小文件一直是影响生产效率的问题之一，合并的小文件的工作也是迫在眉睫，百度了很久，网上提供的解决方案千篇一律，无外乎hive内置的功能，当然也是有用的。其他的方法嘛，Google了一下，发现有现成的工具可以合并。但根本的解决办法是如何避免产生小文件，下面列举的方法只能作为Workarond。 方法列举如下： 1. 把有大量小文件的表插到临时表中，drop源表+rename临时">
+<meta name="keywords" content="HDP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Sean&#39;s Blog">
+<meta property="og:title" content="Hive合并小文件的方法">
 <meta property="og:url" content="http://yoursite.com/2018/11/26/Hadoop_combine_small_files/index.html">
 <meta property="og:site_name" content="Sean&#39;s Blog">
-<meta property="og:description" content="Hive合并小文件 title: Hive合并小文件的方法date: 2018-11-26 10:38:17updated: 2018-11-26 20:38:17categories: Platform tags: [HDP,Hive]###hive表中大量的小文件一直是影响生产效率的问题之一，合并的小文件的工作也是迫在眉睫，百度了很久，网上提供的解决方案千篇一律，无外乎hive内置的功能，当然">
+<meta property="og:description" content="###hive表中大量的小文件一直是影响生产效率的问题之一，合并的小文件的工作也是迫在眉睫，百度了很久，网上提供的解决方案千篇一律，无外乎hive内置的功能，当然也是有用的。其他的方法嘛，Google了一下，发现有现成的工具可以合并。但根本的解决办法是如何避免产生小文件，下面列举的方法只能作为Workarond。 方法列举如下： 1. 把有大量小文件的表插到临时表中，drop源表+rename临时">
 <meta property="og:locale" content="CN">
-<meta property="og:updated_time" content="2018-11-26T03:07:18.864Z">
+<meta property="og:updated_time" content="2018-11-26T12:38:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sean&#39;s Blog">
-<meta name="twitter:description" content="Hive合并小文件 title: Hive合并小文件的方法date: 2018-11-26 10:38:17updated: 2018-11-26 20:38:17categories: Platform tags: [HDP,Hive]###hive表中大量的小文件一直是影响生产效率的问题之一，合并的小文件的工作也是迫在眉睫，百度了很久，网上提供的解决方案千篇一律，无外乎hive内置的功能，当然">
+<meta name="twitter:title" content="Hive合并小文件的方法">
+<meta name="twitter:description" content="###hive表中大量的小文件一直是影响生产效率的问题之一，合并的小文件的工作也是迫在眉睫，百度了很久，网上提供的解决方案千篇一律，无外乎hive内置的功能，当然也是有用的。其他的方法嘛，Google了一下，发现有现成的工具可以合并。但根本的解决办法是如何避免产生小文件，下面列举的方法只能作为Workarond。 方法列举如下： 1. 把有大量小文件的表插到临时表中，drop源表+rename临时">
   
     <link rel="alternate" href="/atom.xml" title="Sean&#39;s Blog" type="application/atom+xml">
   
@@ -72,18 +72,30 @@
         <section id="main"><article id="post-Hadoop_combine_small_files" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/11/26/Hadoop_combine_small_files/" class="article-date">
-  <time datetime="2018-11-26T03:07:18.864Z" itemprop="datePublished">2018-11-26</time>
+  <time datetime="2018-11-26T12:38:17.000Z" itemprop="datePublished">2018-11-26</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Platform/">Platform</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hive合并小文件的方法
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Hive合并小文件"><a href="#Hive合并小文件" class="headerlink" title="Hive合并小文件"></a>Hive合并小文件</h2><hr>
-<p>title: Hive合并小文件的方法<br>date: 2018-11-26 10:38:17<br>updated: 2018-11-26 20:38:17<br>categories: Platform</p>
-<h2 id="tags-HDP-Hive"><a href="#tags-HDP-Hive" class="headerlink" title="tags: [HDP,Hive]"></a>tags: [HDP,Hive]</h2><p>###hive表中大量的小文件一直是影响生产效率的问题之一，合并的小文件的工作也是迫在眉睫，百度了很久，网上提供的解决方案千篇一律，无外乎hive内置的功能，当然也是有用的。其他的方法嘛，Google了一下，发现有现成的工具可以合并。但根本的解决办法是如何避免产生小文件，下面列举的方法只能作为Workarond。</p>
+        <p>###hive表中大量的小文件一直是影响生产效率的问题之一，合并的小文件的工作也是迫在眉睫，百度了很久，网上提供的解决方案千篇一律，无外乎hive内置的功能，当然也是有用的。其他的方法嘛，Google了一下，发现有现成的工具可以合并。但根本的解决办法是如何避免产生小文件，下面列举的方法只能作为Workarond。</p>
 <p>方法列举如下：</p>
 <pre><code>1. 把有大量小文件的表插到临时表中，drop源表+rename临时表 或 清空+回插到源表 (需要定期维护) 或者使用外部表，手动合并小文件
 2. 使用filecrush先合并到临时目录，再load+overwrite源表。（数据在合并时是可用的，load回去速度也很快） 
@@ -104,9 +116,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/26/Hadoop_combine_small_files/" data-id="cjoxqgdg7000al58kfoxrjhjl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/26/Hadoop_combine_small_files/" data-id="cjoxqkn1n000aoe8k08v3gk6w" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDP/">HDP</a></li></ul>
+
     </footer>
   </div>
   
@@ -174,7 +188,7 @@
       <ul>
         
           <li>
-            <a href="/2018/11/26/Hadoop_combine_small_files/">(no title)</a>
+            <a href="/2018/11/26/Hadoop_combine_small_files/">Hive合并小文件的方法</a>
           </li>
         
           <li>
