@@ -73,7 +73,7 @@
     <article id="post-Hadoop_combine_small_files" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/11/26/Hadoop_combine_small_files/" class="article-date">
-  <time datetime="2018-11-26T03:03:15.774Z" itemprop="datePublished">2018-11-26</time>
+  <time datetime="2018-11-26T03:07:18.864Z" itemprop="datePublished">2018-11-26</time>
 </a>
     
   </div>
@@ -83,9 +83,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="Hive合并小文件"><a href="#Hive合并小文件" class="headerlink" title="Hive合并小文件"></a>Hive合并小文件</h2><hr>
-<p>title: Hive合并小文件的方法<br>date: 2018-11-26 10:38:17<br>updated: 2018-11-26 20:38:17<br>categories: Platform<br>tags: [HDP,Hive]</p>
-<hr>
-<p>###hive表中大量的小文件一直是影响生产效率的问题之一，合并的小文件的工作也是迫在眉睫，百度了很久，网上提供的解决方案千篇一律，无外乎hive内置的功能，当然也是有用的。其他的方法嘛，Google了一下，发现有现成的工具可以合并。但根本的解决办法是如何避免产生小文件，下面列举的方法只能作为Workarond。</p>
+<p>title: Hive合并小文件的方法<br>date: 2018-11-26 10:38:17<br>updated: 2018-11-26 20:38:17<br>categories: Platform</p>
+<h2 id="tags-HDP-Hive"><a href="#tags-HDP-Hive" class="headerlink" title="tags: [HDP,Hive]"></a>tags: [HDP,Hive]</h2><p>###hive表中大量的小文件一直是影响生产效率的问题之一，合并的小文件的工作也是迫在眉睫，百度了很久，网上提供的解决方案千篇一律，无外乎hive内置的功能，当然也是有用的。其他的方法嘛，Google了一下，发现有现成的工具可以合并。但根本的解决办法是如何避免产生小文件，下面列举的方法只能作为Workarond。</p>
 <p>方法列举如下：</p>
 <pre><code>1. 把有大量小文件的表插到临时表中，drop源表+rename临时表 或 清空+回插到源表 (需要定期维护) 或者使用外部表，手动合并小文件
 2. 使用filecrush先合并到临时目录，再load+overwrite源表。（数据在合并时是可用的，load回去速度也很快） 
@@ -106,7 +105,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/26/Hadoop_combine_small_files/" data-id="cjoxqdtnl000ahz8k17uj6dj3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/26/Hadoop_combine_small_files/" data-id="cjoxqexnw000aj38krlp92v1g" class="article-share-link">Share</a>
       
       
     </footer>
@@ -152,7 +151,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/11/add_or_delete_hdp_hosts_client/" data-id="cjoxqdtn50000hz8kn0xkdrvp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/11/add_or_delete_hdp_hosts_client/" data-id="cjoxqexne0000j38kzl4xnirr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDP/">HDP</a></li></ul>
@@ -213,7 +212,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/11/postgresql_support_guide/" data-id="cjoxqdtna0001hz8k09tolvm8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/11/postgresql_support_guide/" data-id="cjoxqexnj0001j38kkpz7j7rh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDP/">HDP</a></li></ul>
