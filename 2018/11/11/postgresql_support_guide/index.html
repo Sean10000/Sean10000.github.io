@@ -7,18 +7,18 @@
   
   <title>重启postgreSQL | 小马农家乐</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="– ##重启postgreSQL [root@hdp-itg-ambari shdev]# su postgres bash-4.2$ pg_ctl restart -m immediate -D /var/lib/pgsql/data/  慎用 : 推荐使用 -m fast / -m smart  waiting for server to shut down…. done server sto">
+  <meta name="description" content="– 重启postgreSQL[root@hdp-itg-ambari shdev]# su postgres bash-4.2$ pg_ctl restart -m immediate -D /var/lib/pgsql/data/  慎用 : 推荐使用 -m fast / -m smart  waiting for server to shut down…. done server stoppe">
 <meta name="keywords" content="HDP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="重启postgreSQL">
 <meta property="og:url" content="https://mashicheng.tk/2018/11/11/postgresql_support_guide/index.html">
 <meta property="og:site_name" content="小马农家乐">
-<meta property="og:description" content="– ##重启postgreSQL [root@hdp-itg-ambari shdev]# su postgres bash-4.2$ pg_ctl restart -m immediate -D /var/lib/pgsql/data/  慎用 : 推荐使用 -m fast / -m smart  waiting for server to shut down…. done server sto">
+<meta property="og:description" content="– 重启postgreSQL[root@hdp-itg-ambari shdev]# su postgres bash-4.2$ pg_ctl restart -m immediate -D /var/lib/pgsql/data/  慎用 : 推荐使用 -m fast / -m smart  waiting for server to shut down…. done server stoppe">
 <meta property="og:locale" content="CN">
 <meta property="og:updated_time" content="2018-11-23T12:38:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重启postgreSQL">
-<meta name="twitter:description" content="– ##重启postgreSQL [root@hdp-itg-ambari shdev]# su postgres bash-4.2$ pg_ctl restart -m immediate -D /var/lib/pgsql/data/  慎用 : 推荐使用 -m fast / -m smart  waiting for server to shut down…. done server sto">
+<meta name="twitter:description" content="– 重启postgreSQL[root@hdp-itg-ambari shdev]# su postgres bash-4.2$ pg_ctl restart -m immediate -D /var/lib/pgsql/data/  慎用 : 推荐使用 -m fast / -m smart  waiting for server to shut down…. done server stoppe">
   
     <link rel="alternate" href="/atom.xml" title="小马农家乐" type="application/atom+xml">
   
@@ -96,8 +96,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>–</p>
-<p>##重启postgreSQL</p>
-<p>[root@hdp-itg-ambari shdev]# <strong><em>su postgres</em></strong></p>
+<h2 id="重启postgreSQL"><a href="#重启postgreSQL" class="headerlink" title="重启postgreSQL"></a>重启postgreSQL</h2><p>[root@hdp-itg-ambari shdev]# <strong><em>su postgres</em></strong></p>
 <p>bash-4.2$ <strong><em>pg_ctl restart -m immediate -D /var/lib/pgsql/data/</em></strong> </p>
 <p><strong><em>慎用</em></strong> : 推荐使用 -m fast / -m smart </p>
 <p>waiting for server to shut down….</p>
@@ -114,11 +113,10 @@
 <p>/usr/bin/postgres “-D” “/var/lib/pgsql/data” “-p” “5432”</p>
 <p>bash-4.2$ pg_ctl –help</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">pg_ctl is a utility to initialize, start, stop, or control a PostgreSQL server.</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line">  pg_ctl init[db]               [-D DATADIR] [-s] [-o &quot;OPTIONS&quot;]</span><br><span class="line">  pg_ctl start   [-w] [-t SECS] [-D DATADIR] [-s] [-l FILENAME] [-o &quot;OPTIONS&quot;]</span><br><span class="line">  pg_ctl stop    [-W] [-t SECS] [-D DATADIR] [-s] [-m SHUTDOWN-MODE]</span><br><span class="line">  pg_ctl restart [-w] [-t SECS] [-D DATADIR] [-s] [-m SHUTDOWN-MODE]</span><br><span class="line">                 [-o &quot;OPTIONS&quot;]</span><br><span class="line">  pg_ctl reload  [-D DATADIR] [-s]</span><br><span class="line">  pg_ctl status  [-D DATADIR]</span><br><span class="line">  pg_ctl promote [-D DATADIR] [-s]</span><br><span class="line">  pg_ctl kill    SIGNALNAME PID</span><br><span class="line"></span><br><span class="line">Common options:</span><br><span class="line">  -D, --pgdata=DATADIR   location of the database storage area</span><br><span class="line">  -s, --silent           only print errors, no informational messages</span><br><span class="line">  -t, --timeout=SECS     seconds to wait when using -w option</span><br><span class="line">  -V, --version          output version information, then exit</span><br><span class="line">  -w                     wait until operation completes</span><br><span class="line">  -W                     do not wait until operation completes</span><br><span class="line">  -?, --help             show this help, then exit</span><br><span class="line">(The default is to wait for shutdown, but not for start or restart.)</span><br><span class="line"></span><br><span class="line">If the -D option is omitted, the environment variable PGDATA is used.</span><br><span class="line"></span><br><span class="line">Options for start or restart:</span><br><span class="line">  -c, --core-files       allow postgres to produce core files</span><br><span class="line">  -l, --log=FILENAME     write (or append) server log to FILENAME</span><br><span class="line">  -o OPTIONS             command line options to pass to postgres</span><br><span class="line">                         (PostgreSQL server executable) or initdb</span><br><span class="line">  -p PATH-TO-POSTGRES    normally not necessary</span><br><span class="line"></span><br><span class="line">Options for stop or restart:</span><br><span class="line">  -m, --mode=MODE        MODE can be &quot;smart&quot;, &quot;fast&quot;, or &quot;immediate&quot;</span><br><span class="line"></span><br><span class="line">Shutdown modes are:</span><br><span class="line">  smart       quit after all clients have disconnected</span><br><span class="line">  fast        quit directly, with proper shutdown</span><br><span class="line">  immediate   quit without complete shutdown; will lead to recovery on restart</span><br><span class="line"></span><br><span class="line">Allowed signal names for kill:</span><br><span class="line">  ABRT HUP INT QUIT TERM USR1 USR2</span><br></pre></td></tr></table></figure>
-
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashicheng.tk/2018/11/11/postgresql_support_guide/" data-id="cjp0xfqfa0000u58k6zqeojur" class="article-share-link">Share</a>
+      <a data-url="https://mashicheng.tk/2018/11/11/postgresql_support_guide/" data-id="cjpjgd0e80002bh8kembu98ht" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDP/">HDP</a></li></ul>
@@ -129,20 +127,15 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/11/26/Hadoop_combine_small_files/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/11/11/add_or_delete_hdp_hosts_client/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Hive合并小文件的方法
+          新增或删除hdp平台某个host组件的client命令
         
       </div>
     </a>
   
-  
-    <a href="/2018/11/11/add_or_delete_hdp_hosts_client/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">新增或删除hdp平台某个host组件的client命令</div>
-    </a>
   
 </nav>
 
@@ -186,7 +179,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li></ul>
     </div>
   </div>
 
@@ -199,15 +192,19 @@
       <ul>
         
           <li>
+            <a href="/2018/12/11/Mysql-主从同步/">Mysql 主从同步</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/26/Hadoop_combine_small_files/">Hive合并小文件的方法</a>
           </li>
         
           <li>
-            <a href="/2018/11/11/postgresql_support_guide/">重启postgreSQL</a>
+            <a href="/2018/11/11/add_or_delete_hdp_hosts_client/">新增或删除hdp平台某个host组件的client命令</a>
           </li>
         
           <li>
-            <a href="/2018/11/11/add_or_delete_hdp_hosts_client/">新增或删除hdp平台某个host组件的client命令</a>
+            <a href="/2018/11/11/postgresql_support_guide/">重启postgreSQL</a>
           </li>
         
       </ul>
