@@ -70,6 +70,71 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-在centos7上安装Mysql5-7" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/12/在centos7上安装Mysql5-7/" class="article-date">
+  <time datetime="2018-12-12T02:52:34.000Z" itemprop="datePublished">2018-12-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/12/在centos7上安装Mysql5-7/">在centos7上安装Mysql5.7</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="安装Mysql"><a href="#安装Mysql" class="headerlink" title="安装Mysql"></a>安装Mysql</h3><ol>
+<li><p>安装官方yum源</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm</span><br><span class="line">rpm -i mysql80-community-release-el7-1.noarch.rpm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>选择mysql版本,默认安装mysql80，需启用mysql57，禁用mysql80</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/yum.repos.d/mysql-community.repo</span><br><span class="line"># Enable to use MySQL 5.7 change &apos;enabled value&apos; 0 to 1</span><br><span class="line">[mysql57-community]</span><br><span class="line">name=MySQL 5.7 Community Server</span><br><span class="line">baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/7/$basearch/</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span><br><span class="line">##change 1 to 0 to disable this version</span><br><span class="line">[mysql80-community]</span><br><span class="line">name=MySQL 8.0 Community Server</span><br><span class="line">baseurl=http://repo.mysql.com/yum/mysql-8.0-community/el/7/$basearch/</span><br><span class="line">enabled=0</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum provides &apos;*/applydeltarpm&apos;</span><br><span class="line">yum install -y deltarpm</span><br><span class="line">yum install -y mysql mysql-server mysql-devel</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动登录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">service mysqld start</span><br><span class="line">cat /var/log/mysqld.log | grep password</span><br><span class="line">2018-12-12T02:43:41.601627Z 1 [Note] A temporary password is generated for root@localhost: jYq68jSrzr&gt;7</span><br><span class="line">mysql -p jYq68jSrzr&gt;7</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="5">
+<li><p>更改初始密码，创建用户,授权</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">--密码只能为强密码，需同时包含大小写，特殊字符，数字和长度的要求</span><br><span class="line">ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;zawdc@#DA123Z&apos;;</span><br><span class="line">CREATE USER &apos;mashic&apos;@&apos;白名单ip或%&apos; IDENTIFIED BY &apos;zawdc@#DA123Z&apos;;</span><br><span class="line">DROP USER &apos;mashic&apos;;</span><br></pre></td></tr></table></figure>
+<p>更多请参考<strong><em><a href="https://www.jianshu.com/p/d7b9c468f20d" target="_blank" rel="noopener">链接</a></em></strong></p>
+</li>
+</ol>
+<h5 id="Issue-Tracker"><a href="#Issue-Tracker" class="headerlink" title="Issue Tracker:"></a>Issue Tracker:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">##远程登录出现如下问题。</span><br><span class="line"> ./mysql -h172.16.244.129 -umashic -pzawdc@#DA123Z</span><br><span class="line">mysql: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">ERROR 2003 (HY000): Can&apos;t connect to MySQL server on &apos;172.16.244.129&apos; (61)</span><br></pre></td></tr></table></figure>
+<h5 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h5><ol>
+<li><p>检查登录的ip是否在白名单即创建用户时指定的ip，或%</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select host,user from mysql.user;</span><br><span class="line">+-----------+---------------+</span><br><span class="line">| host      | user          |</span><br><span class="line">+-----------+---------------+</span><br><span class="line">| %         | mashic        |</span><br><span class="line">| localhost | mysql.session |</span><br><span class="line">| localhost | mysql.sys     |</span><br><span class="line">| localhost | root          |</span><br><span class="line">+-----------+---------------+</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加防火墙设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --permanent --add-service=mysql</span><br><span class="line">sudo systemctl restart firewalld</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://mashicheng.tk/2018/12/12/在centos7上安装Mysql5-7/" data-id="cjpkrzgos000b9e8kccmknbau" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Mysql-主从同步" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/11/Mysql-主从同步/" class="article-date">
@@ -96,9 +161,8 @@
 <h3 id="1-pre-check"><a href="#1-pre-check" class="headerlink" title="1. pre check:"></a>1. pre check:</h3><p>查询slave服务器的大小写敏感，1为大小写不敏感 0则反之</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &apos;%case%&apos;;</span><br><span class="line">+------------------------------------+-------+</span><br><span class="line">| Variable_name                      | Value |</span><br><span class="line">+------------------------------------+-------+</span><br><span class="line">| lower_case_file_system             | OFF   |</span><br><span class="line">| lower_case_table_names             | 1     |</span><br><span class="line">| validate_password_mixed_case_count | 1     |</span><br><span class="line">+------------------------------------+-------+</span><br></pre></td></tr></table></figure>
 <p>查询master 要同步的DB字符集, slave 必须相同 否则会报1667<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MySQL [ajmide_stat]&gt; show create database ajmide_stat;</span><br><span class="line">+-------------+-------------------------------------------------------------------------+</span><br><span class="line">| Database    | Create Database                                                         |`</span><br><span class="line">+-------------+-------------------------------------------------------------------------+</span><br><span class="line">| ajmide_stat | CREATE DATABASE `ajmide_stat` /*!40100 DEFAULT CHARACTER SET utf8mb4 */ |</span><br><span class="line">+-------------+-------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure></p>
-<p> 查询主库的binlog得到mysql-bin.002884 和 position 362448<br>    show master status;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">MySQL [ajmide_stat]&gt; show master status;</span><br><span class="line">+------------------+----------+--------------+------------------+------------------------------------------------------------------------------------------+</span><br><span class="line">| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set                                                                        |</span><br><span class="line">+------------------+----------+--------------+------------------+------------------------------------------------------------------------------------------+</span><br><span class="line">| mysql-bin.002884 |   345858 |              |                  | 3a77e715-c59f-11e6-9b84-6c92bf315f2f:1-4441693,</span><br><span class="line">54e74062-c59f-11e6-9b85-6c92bf3148b3:1-4 |</span><br><span class="line">+------------------+----------+--------------+------------------+------------------------------------------------------------------------------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">show variables like &apos;%binlog_format%&apos;;</span><br><span class="line">MySQL [ajmide_stat]&gt; show variables like &apos;%binlog_format%&apos;;</span><br><span class="line">+---------------+-------+</span><br><span class="line">| Variable_name | Value |</span><br><span class="line">+---------------+-------+</span><br><span class="line">| binlog_format | ROW   |</span><br><span class="line">+---------------+-------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<h3 id="2-在slave服务器，修改：-etc-my-cnf"><a href="#2-在slave服务器，修改：-etc-my-cnf" class="headerlink" title="2. 在slave服务器，修改：/etc/my.cnf."></a>2. 在slave服务器，修改：/etc/my.cnf.</h3><h5 id="a-增加这几句："><a href="#a-增加这几句：" class="headerlink" title="a. 增加这几句："></a>a. 增加这几句：</h5><p>server-id = 2<br>expire_logs_days = 10<br>max_binlog_size = 100M<br>replicate-do-db = ajmide_stat<br>replicate-ignore-db = mysql<br>replicate-ignore-db = information_schema<br>replicate-ignore-db = preformance_schema<br>slave-skip-errors=all</p>
-<p>#GTID<br>gtid_mode=on<br>enforce_gtid_consistency=on<br>binlog_format=row<br>log-slave-updates=1</p>
+<p> 查询主库的binlog得到mysql-bin.002884 和 position 345858<br>    show master status;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">MySQL [ajmide_stat]&gt; show master status;</span><br><span class="line">+------------------+----------+--------------+------------------+------------------------------------------------------------------------------------------+</span><br><span class="line">| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set                                                                        |</span><br><span class="line">+------------------+----------+--------------+------------------+------------------------------------------------------------------------------------------+</span><br><span class="line">| mysql-bin.002884 |   345858 |              |                  | 3a77e715-c59f-11e6-9b84-6c92bf315f2f:1-4441693,</span><br><span class="line">54e74062-c59f-11e6-9b85-6c92bf3148b3:1-4 |</span><br><span class="line">+------------------+----------+--------------+------------------+------------------------------------------------------------------------------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">show variables like &apos;%binlog_format%&apos;;</span><br><span class="line">MySQL [ajmide_stat]&gt; show variables like &apos;%binlog_format%&apos;;</span><br><span class="line">+---------------+-------+</span><br><span class="line">| Variable_name | Value |</span><br><span class="line">+---------------+-------+</span><br><span class="line">| binlog_format | ROW   |</span><br><span class="line">+---------------+-------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-在slave服务器，修改：-etc-my-cnf"><a href="#2-在slave服务器，修改：-etc-my-cnf" class="headerlink" title="2. 在slave服务器，修改：/etc/my.cnf."></a>2. 在slave服务器，修改：/etc/my.cnf.</h3><h5 id="a-增加这几句："><a href="#a-增加这几句：" class="headerlink" title="a. 增加这几句："></a>a. 增加这几句：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">server-id = 2</span><br><span class="line">expire_logs_days = 10</span><br><span class="line">max_binlog_size = 100M</span><br><span class="line">replicate-do-db = ajmide_stat</span><br><span class="line">replicate-ignore-db = mysql</span><br><span class="line">replicate-ignore-db = information_schema</span><br><span class="line">replicate-ignore-db = preformance_schema</span><br><span class="line">slave-skip-errors=all</span><br><span class="line">#GTID</span><br><span class="line">gtid_mode=on</span><br><span class="line">enforce_gtid_consistency=on</span><br><span class="line">binlog_format=row</span><br><span class="line">log-slave-updates=1</span><br></pre></td></tr></table></figure>
 <h5 id="b-修改后，重启mysql-然后登录mysql"><a href="#b-修改后，重启mysql-然后登录mysql" class="headerlink" title="b. 修改后，重启mysql.然后登录mysql"></a>b. 修改后，重启mysql.然后登录mysql</h5><h5 id="c-执行如下命令"><a href="#c-执行如下命令" class="headerlink" title="c. 执行如下命令"></a>c. 执行如下命令</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">stop slave;</span><br><span class="line">reset slave all;</span><br><span class="line">change master to master_host=&apos;host-name&apos;,master_port=3306,master_user=&apos;xxx&apos;,master_password=&apos;xxx&apos;, master_log_file=&apos;mysql-bin.002888&apos;, master_log_pos=130186;</span><br><span class="line">start slave;</span><br><span class="line">show slave status;</span><br></pre></td></tr></table></figure>
 <h3 id="issue-tracker"><a href="#issue-tracker" class="headerlink" title="issue tracker:"></a>issue tracker:</h3><ol>
 <li>检查表CHARSET,或在创建database的时候指定默认的字符集（CREATE DATABASE <code>ajmide_stat</code> DEFAULT CHARACTER SET utf8; ）<br>如需改变整个mysql服务器的字符集 则需将在/etc/my.cnf 新加 default-character-set=utf8<br>mysql 5.7版本选择 character_set_server=utf8</li>
@@ -113,7 +177,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashicheng.tk/2018/12/11/Mysql-主从同步/" data-id="cjpjgo06l0000cd8k2sxw6x99" class="article-share-link">Share</a>
+      <a data-url="https://mashicheng.tk/2018/12/11/Mysql-主从同步/" data-id="cjpkrzgo700009e8k1pf0wi5i" class="article-share-link">Share</a>
       
       
     </footer>
@@ -169,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashicheng.tk/2018/11/26/Hadoop_combine_small_files/" data-id="cjpjgo072000bcd8kz2pip3o9" class="article-share-link">Share</a>
+      <a data-url="https://mashicheng.tk/2018/11/26/Hadoop_combine_small_files/" data-id="cjpkrzgot000c9e8kiqcm0ipx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDP/">HDP</a></li></ul>
@@ -214,7 +278,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashicheng.tk/2018/11/11/add_or_delete_hdp_hosts_client/" data-id="cjpjgo06p0001cd8krvjb5fhe" class="article-share-link">Share</a>
+      <a data-url="https://mashicheng.tk/2018/11/11/add_or_delete_hdp_hosts_client/" data-id="cjpkrzgob00019e8k7wl4p1qz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDP/">HDP</a></li></ul>
@@ -273,7 +337,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://mashicheng.tk/2018/11/11/postgresql_support_guide/" data-id="cjpjgo06r0002cd8kbd2dqsd0" class="article-share-link">Share</a>
+      <a data-url="https://mashicheng.tk/2018/11/11/postgresql_support_guide/" data-id="cjpkrzgod00029e8kti5tv7ih" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDP/">HDP</a></li></ul>
@@ -335,6 +399,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/12/12/在centos7上安装Mysql5-7/">在centos7上安装Mysql5.7</a>
+          </li>
         
           <li>
             <a href="/2018/12/11/Mysql-主从同步/">Mysql 主从同步</a>
